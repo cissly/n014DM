@@ -122,7 +122,8 @@ const message = document.getElementById('message')
 
 
 
-mesForm.addEventListener('submit', (e) => {
+mesForm.addEventListener('Submit', (e) => {
+    console.log('이벤트 실행')
     e.preventDefault();
     const to = title.getAttribute('userID');
     const time = new Date().toLocaleString('en-US', {
@@ -171,5 +172,30 @@ socket.on('user-away', userID => {
         title.innerHTML = '&nbsp;'
         msgDiv.classList.add('d-none')
         messages.classList.add('d-none')
+    }
+})
+
+socket.on('stored-messages', ({messages})=> {
+    if(messages.length > 0) {
+        messages.forEach(msg => {
+            const payload = {
+                message: msg.message,
+                time: msg.time
+            }
+
+            if(msg.from === socket.id){
+                appendMessage({
+                    ...payload,
+                    background: 'bg-success',
+                    position: 'right'
+                })
+            } else {
+                appendMessage({
+                    ...payload,
+                    background: 'bg-secondary',
+                    position: 'left'
+                })
+            }
+        })
     }
 })

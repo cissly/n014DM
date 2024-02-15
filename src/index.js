@@ -6,7 +6,7 @@ const crypto = require('crypto');
 const http = require('http');
 const {Server} = require('socket.io');
 const { default: mongoose } = require('mongoose');
-const {saveMessages} = require('./utils/messages')
+const {saveMessages, fetchMessages} = require('./utils/messages')
 const server = http.createServer(app);
 const io = new Server(server)
 
@@ -52,12 +52,13 @@ io.on('connection', async socket => {
     io.emit('users-data', {users})
 
     socket.on('message-to-server',(payload)=> {
+        console.log("서버가 받음")
         io.to(payload.to).emit('message-to-client', payload);
         saveMessages(payload);
     })
 
-    socket.on('fetch-messages', ()=> {
-
+    socket.on('fetch-messages', ({receiver})=> {
+        fetchMessages(io, socket.id, receiver)
     })
     socket.on('disconnect', () => {
         users = users.filter(user => user.userID !== socket.id)

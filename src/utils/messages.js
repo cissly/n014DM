@@ -34,4 +34,4 @@ const fetchMessages = async (io, sender, receiver ) => {
         }
     }
 }
-module.exports = { saveMessages }
+module.exports = { saveMessages ,fetchMessages}
