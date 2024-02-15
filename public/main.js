@@ -117,12 +117,12 @@ if(sessUserID && sessUsername){
     userTitle.innerHTML = sessUsername
 }
 
-const mesForm = document.querySelector('.msgFrom')
+const msgForm = document.querySelector('.msgForm')
 const message = document.getElementById('message')
 
 
 
-mesForm.addEventListener('Submit', (e) => {
+msgForm.addEventListener('submit', (e) => {
     console.log('이벤트 실행')
     e.preventDefault();
     const to = title.getAttribute('userID');
@@ -146,7 +146,6 @@ mesForm.addEventListener('Submit', (e) => {
     message.value = '';
     message.focus();
 })
-localStorage
 
 
 socket.on('message-to-client', ({from,message,time}) => {
