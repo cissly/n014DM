@@ -52,7 +52,6 @@ io.on('connection', async socket => {
     io.emit('users-data', {users})
 
     socket.on('message-to-server',(payload)=> {
-        console.log("서버가 받음")
         io.to(payload.to).emit('message-to-client', payload);
         saveMessages(payload);
     })

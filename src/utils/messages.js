@@ -10,10 +10,9 @@ const saveMessages = async ({from, to, message, time}) => {
         from,message,time
     }
 
-    messageModel.updateOne({userToken: token}, {$push: {message: data}}).then((err,res) => {
-        if(err) console.error(err);
-        console.log('메세지 생성')
-    })
+    messageModel.updateOne({userToken: token}, {$push: {messages: data}})
+    .then((res) => {console.log('메세지 생성')})
+    .catch(err => {console.error(err)})
 }
 const fetchMessages = async (io, sender, receiver ) => {
     const  token = getToken(sender, receiver);

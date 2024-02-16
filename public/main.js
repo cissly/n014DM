@@ -123,7 +123,6 @@ const message = document.getElementById('message')
 
 
 msgForm.addEventListener('submit', (e) => {
-    console.log('이벤트 실행')
     e.preventDefault();
     const to = title.getAttribute('userID');
     const time = new Date().toLocaleString('en-US', {
@@ -163,7 +162,7 @@ socket.on('message-to-client', ({from,message,time}) => {
     } else {
         notify.classList.remove('d-none')
     }
-}) 
+})
 
 socket.on('user-away', userID => {
     const to = title.getAttribute('userID');
